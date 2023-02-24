@@ -1,9 +1,21 @@
 <h1> All your lists</h1>
 
-<ul>
-<% @lists.each do |list| %>
-  <li> <%= link_to list.name, list_path(list) %> </li>
-<% end %>
-</ul>
+<div class="container">
+  <% @lists.each do |list| %>
+    <%= link_to list_path(list) do %>
+      <div class="card-product mt-2">
+        <% if list.photo.attached? %>
+          <%= cl_image_tag list.photo.key, height: 300, width: 400, crop: :fill %>
+        <% else %>
+          <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+        <% end %>
+        <div class="card-product-infos">
+          <h2><%=list.name%></h2>
+          <p>Product description with <strong>relevant info</strong> only.</p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
 <%= link_to "Add a new list", new_list_path %>
